@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<clickhouse>
+    <listen_host>::</listen_host>
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+
+    <http_port>8123</http_port>
+    <tcp_port>9000</tcp_port>
+
+    <logger>
+        <level>warning</level>
+        <console>true</console>
+        <log>/var/log/clickhouse-server/clickhouse-server.log</log>
+        <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
+        <size>100M</size>
+        <count>5</count>
+    </logger>
+
+    <!-- 边缘服务器 8G 内存适配 -->
+    <max_server_memory_usage_to_ram_ratio>0.6</max_server_memory_usage_to_ram_ratio>
+    <max_memory_usage_for_all_queries>4000000000</max_memory_usage_for_all_queries>
+
+    <mark_cache_size>536870912</mark_cache_size>
+    <uncompressed_cache_size>858993459</uncompressed_cache_size>
+
+    <timezone>Asia/Shanghai</timezone>
+
+    <merge_tree>
+        <max_suspicious_broken_parts>5</max_suspicious_broken_parts>
+        <parts_to_delay_insert>100</parts_to_delay_insert>
+    </merge_tree>
+</clickhouse>

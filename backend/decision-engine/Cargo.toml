@@ -1,0 +1,18 @@
+[package]
+name = "decision-engine"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+data-models = { path = "../data-models" }
+risk-engine = { path = "../risk-engine" }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+async-nats = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+parking_lot = { workspace = true }
+dashmap = { workspace = true }

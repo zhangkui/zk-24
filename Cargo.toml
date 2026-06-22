@@ -1,0 +1,38 @@
+[workspace]
+members = [
+    "backend",
+    "backend/data-models",
+    "backend/sensor-ingest",
+    "backend/risk-engine",
+    "backend/decision-engine",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+
+[workspace.dependencies]
+tokio = { version = "1.35", features = ["full"] }
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower-http = { version = "0.5", features = ["cors", "trace", "compression-gzip"] }
+tower = { version = "0.4", features = ["util", "timeout"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_with = "3.6"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4", "serde"] }
+async-nats = { version = "0.34", features = ["tokio", "service", "json"] }
+clickhouse = { version = "0.12", features = ["serde", "uuid", "chrono"] }
+klickhouse = { version = "0.12", features = ["derive", "uuid", "chrono", "serde_json"] }
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+parking_lot = "0.12"
+dashmap = "5.5"
+dotenvy = "0.15"
+futures = "0.3"
+base64 = "0.22"
+rand = "0.8"

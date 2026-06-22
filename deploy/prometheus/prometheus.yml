@@ -1,0 +1,54 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+  external_labels:
+    monitor: 'cableway-edge-monitor'
+    site: 'mount-huangshan-station-a'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+rule_files:
+  - "alerts/*.yml"
+
+scrape_configs:
+  # Prometheus 自身
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 后端 Rust Axum /metrics 端点
+  - job_name: 'cableway-backend'
+    static_configs:
+      - targets: ['backend:3001']
+    metrics_path: '/api/metrics'
+    scrape_interval: 5s
+
+  # NATS JetStream 监控 (8222 HTTP)
+  - job_name: 'nats'
+    static_configs:
+      - targets: ['nats:8222']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # ClickHouse
+  - job_name: 'clickhouse'
+    static_configs:
+      - targets: ['clickhouse:9363']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # 前端 Node.js 进程指标
+  - job_name: 'frontend-node'
+    static_configs:
+      - targets: ['frontend:9464']
+    scrape_interval: 30s
+
+  # 边缘服务器主机指标 (使用 node-exporter 部署在宿主机)
+  - job_name: 'edge-node'
+    static_configs:
+      - targets: ['host.docker.internal:9100']
+    scrape_interval: 15s
